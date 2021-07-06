@@ -2,19 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5e28800-bd13-47c1-8737-5506e4e9b0c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../1st-delete/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/.idea/common_lib_hw31.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/middleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/mongo_config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/redis_config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../1st-delete/store.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mongo_config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/redis_config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/ZhomartZhan.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../main_api32/.idea/main_api32.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../main_api32/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../main_api32/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../main_api32/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../main_api32/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orders_hw31/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orders_hw31/.idea/orders_hw31.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orders_hw31/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orders_hw31/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orders_hw31/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/store.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +26,6 @@
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../../Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GoLibraries">
-    <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1uw9xOmiHWWFHoWgUbTmXtepCK9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -38,8 +37,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
@@ -64,6 +65,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

@@ -1,46 +1,37 @@
 package common_lib_hw31
 
 import (
-	"encoding/json"
 	"github.com/go-redis/redis"
 	"time"
 )
 
-type RedisStore struct {
+type RedisConnectStore struct {
 	client *redis.Client
 }
 
-func NewRedisConnect(cf RedisConfig) (*RedisStore, error) {
-	client := redis.NewClient(&redis.Options{
-		Addr: cf.Host + ":" + cf.Port,
-	})
+func NewRedisConnectStore(cfg RedisConfig) (*RedisConnectStore, error) {
+	//connection to redis
+	client := redis.NewClient(&redis.Options{Addr: cfg.Host + ":" + cfg.Port})
 	err := client.Ping().Err()
 	if err != nil {
 		return nil, err
 	}
-	return &RedisStore{client: client}, nil
+	return &RedisConnectStore{client: client}, nil
 }
 
-func (r *RedisStore) SetValue(key string, value interface{}, t time.Duration) error {
-	jsonData, err := json.Marshal(value)
-	if err != nil {
-		return err
-	}
-	err = r.client.Set(key, jsonData, t).Err()
+func (r *RedisConnectStore) Save(key string, value interface{}, t time.Duration) error {
+	//convert to json if all values is only json
+	err := r.client.Set(key, value, t).Err()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RedisStore) GetValue(key string, src interface{}) error {
-	val, err := r.client.Get(key).Result()
+func (r *RedisConnectStore) Get(key string) (string, error) {
+	value, err := r.client.Get(key).Result()
 	if err != nil {
-		return err
+		return "", err
 	}
-	err = json.Unmarshal([]byte(val), src)
-	if err != nil {
-		return err
-	}
-	return nil
+	return value, nil
 }

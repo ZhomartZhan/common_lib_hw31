@@ -6,54 +6,47 @@ import (
 	"net/http"
 )
 
-type User struct {
-	Id        string `json:"id"`
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Avatar    string `json:"avatar"`
-}
-
-
 type Middleware interface {
-	LoginMiddleware(fn http.Handler) http.Handler
+	LoginMiddleware(fn http.HandlerFunc) http.HandlerFunc
 }
 
 type middleware struct {
-	redisStore *RedisStore
+	redisConnectionStore RedisConnectStore
 }
 
-func NewMiddleware(rS *RedisStore) Middleware {
-	return &middleware{redisStore: rS}
+func NewMiddleware(r RedisConnectStore) Middleware {
+	return &middleware{redisConnectionStore: r}
 }
 
-func (m *middleware) LoginMiddleware(fn http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		key := r.Header.Get("Authorization")
-		if key == "" {
-			respondJSON(w, http.StatusInternalServerError, &HttpError{"For access needed authorization header", http.StatusInternalServerError})
+func (m *middleware) LoginMiddleware(fn http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		token := r.Header.Get("Authorization")
+		if token == "" {
+			respondJSON(w, http.StatusBadRequest, &ErrorMessage{
+				Message: "For access needed authorization header",
+				Status:  http.StatusBadRequest,
+			})
 			return
-		}
-		if key != "" {
-			user := &User{}
-			err := m.redisStore.GetValue(key, &user)
-			if err != nil {
-				errorMessage := err.Error()
-				if err.Error() == "redis: nil" {
-					errorMessage = "Your access key is expired"
-				}
-				respondJSON(w, http.StatusInternalServerError, HttpError{
-					Message:    errorMessage,
-					StatusCode: http.StatusInternalServerError,
+		} else {
+			userId, err := m.redisConnectionStore.Get(token)
+			if err != nil && err.Error() == "redis: nil" {
+				respondJSON(w, http.StatusBadRequest, &ErrorMessage{
+					Message: "Your access key is expired",
+					Status:  http.StatusBadRequest,
+				})
+				return
+			} else if err != nil {
+				respondJSON(w, http.StatusBadRequest, &ErrorMessage{
+					Message: err.Error(),
+					Status:  http.StatusBadRequest,
 				})
 				return
 			}
-			ctx := context.WithValue(r.Context(), "user_id", user.Id)
+			ctx := context.WithValue(r.Context(), "user_id", userId)
 			r = r.WithContext(ctx)
 		}
 		fn.ServeHTTP(w, r)
-	})
+	}
 }
 
 func respondJSON(w http.ResponseWriter, status int, payload interface{}) {
@@ -65,10 +58,10 @@ func respondJSON(w http.ResponseWriter, status int, payload interface{}) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	w.Write([]byte(response))
+	w.Write(response)
 }
 
-type HttpError struct {
-	Message    string `json:"message"`
-	StatusCode int    `json:"status_code"`
+type ErrorMessage struct {
+	Message string `json:"message"`
+	Status  int    `json:"status"`
 }
